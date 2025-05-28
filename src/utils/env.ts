@@ -79,9 +79,32 @@ export function checkEnv() {
   }
 }
 
-// Type-safe way to access environment variables
+/**
+ * Environment variable utility functions
+ */
+
+// Get a required environment variable
+export function getRequiredEnvVar(key: string): string {
+  const value = process.env[key]
+  if (!value) {
+    throw new Error(`Required environment variable ${key} is not set`)
+  }
+  return value
+}
+
+// Get an optional environment variable
 export function getEnvVar(key: string): string | undefined {
   return process.env[key]
+}
+
+// Check if we're in production
+export function isProduction(): boolean {
+  return process.env.NODE_ENV === 'production'
+}
+
+// Check if we're in development
+export function isDevelopment(): boolean {
+  return process.env.NODE_ENV === 'development'
 }
 
 export function getOptionalEnvVar<T extends keyof typeof optionalEnvVars>(key: T): string | undefined {
