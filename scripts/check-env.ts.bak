@@ -1,0 +1,17 @@
+import { validateEnv } from '../src/utils/env'
+
+console.log('Validating environment variables...')
+
+try {
+  // Check for NEXTAUTH_SECRET in production
+  if (process.env.NODE_ENV === 'production' && !process.env.NEXTAUTH_SECRET) {
+    throw new Error('NEXTAUTH_SECRET must be set in production')
+  }
+  
+  console.log('✅ Environment validation passed')
+  process.exit(0)
+} catch (err) {
+  console.error('❌ Environment validation failed:')
+  console.error(err instanceof Error ? err.message : 'An unknown error occurred')
+  process.exit(1)
+} 

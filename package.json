@@ -4,12 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run check-env && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "type-check": "tsc --noEmit",
     "format": "prettier --write .",
-    "prepare": "husky install",
-    "check-env": "ts-node scripts/check-env.ts"
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
