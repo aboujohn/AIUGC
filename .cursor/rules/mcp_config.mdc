@@ -1,0 +1,224 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# MCP Configuration Rules
+
+## 🔧 MCP Server Priority
+
+Use MCP servers in the following priority order:
+
+1. **Supabase MCP**
+   - Primary database operations
+   - User authentication
+   - Real-time subscriptions
+
+2. **GitHub MCP**
+   - Code management
+   - PR workflows
+   - Issue tracking
+
+3. **Puppeteer MCP**
+   - UI testing
+   - Screenshot generation
+   - PDF exports
+
+4. **F2C MCP**
+   - Figma integration
+   - Design system sync
+   - Asset management
+
+5. **Fetch MCP**
+   - External API calls
+   - Data fetching
+   - Resource caching
+
+6. **Ashra MCP**
+   - AI model integration
+   - Content generation
+   - Natural language processing
+
+7. **E2B MCP**
+   - Backend execution
+   - Serverless functions
+   - Code evaluation
+
+## 🔐 Security & Authentication
+
+- **API Key Management**
+  - Never store API keys in MCP configuration files
+  - Use environment variables with proper naming
+  - Implement key rotation policies
+
+```json
+// ✅ DO: Use environment variable references
+{
+  "mcpServers": {
+    "supabase": {
+      "args": ["${SUPABASE_ACCESS_TOKEN}"]
+    }
+  }
+}
+
+// ❌ DON'T: Hardcode API keys
+{
+  "mcpServers": {
+    "supabase": {
+      "args": ["actual-api-key-here"]
+    }
+  }
+}
+```
+
+## 🛠️ Configuration Structure
+
+- **Project-Specific Config**
+  - Keep in `.cursor/mcp.json`
+  - Version control safe settings only
+  - Document required environment variables
+
+- **Global Config**
+  - Store in `~/.cursor/mcp.json`
+  - Personal development settings
+  - Local environment overrides
+
+## 📡 Transport Configuration
+
+- **Development Transport**
+  ```json
+  {
+    "transport": {
+      "type": "stdio",
+      "options": {
+        "debug": true
+      }
+    }
+  }
+  ```
+
+- **Team Transport**
+  ```json
+  {
+    "transport": {
+      "type": "sse",
+      "options": {
+        "endpoint": "${MCP_ENDPOINT}",
+        "token": "${MCP_TOKEN}"
+      }
+    }
+  }
+  ```
+
+## 🔄 MCP Server Management
+
+- **Health Checks**
+  - Implement regular connectivity tests
+  - Monitor server response times
+  - Log and alert on failures
+
+```typescript
+// ✅ DO: Implement health checks
+const checkMCPHealth = async () => {
+  try {
+    await Promise.all([
+      supabaseMCP.ping(),
+      githubMCP.ping(),
+      puppeteerMCP.ping()
+    ]);
+    logger.info('All MCP servers healthy');
+  } catch (error) {
+    logger.error('MCP health check failed:', error);
+    alertDevOps('MCP server failure detected');
+  }
+};
+
+// ❌ DON'T: Skip health monitoring
+const unsafeOperation = async () => {
+  await supabaseMCP.query(); // Could fail without warning
+};
+```
+
+## 🔍 Debugging & Monitoring
+
+- **Logging Requirements**
+  - Include MCP server ID in logs
+  - Track operation latency
+  - Log rate limit usage
+
+```typescript
+// ✅ DO: Comprehensive logging
+const logMCPOperation = async (serverId: string, operation: string) => {
+  const start = Date.now();
+  try {
+    const result = await mcpServers[serverId].execute(operation);
+    logger.info(`MCP ${serverId} operation completed`, {
+      duration: Date.now() - start,
+      operation,
+      success: true
+    });
+    return result;
+  } catch (error) {
+    logger.error(`MCP ${serverId} operation failed`, {
+      duration: Date.now() - start,
+      operation,
+      error: error.message
+    });
+    throw error;
+  }
+};
+
+// ❌ DON'T: Minimal logging
+const poorLogging = async () => {
+  const result = await mcp.execute();
+  console.log('Done');
+  return result;
+};
+```
+
+## 🔄 Synchronization
+
+- **Team Synchronization**
+  - Share MCP configurations via version control
+  - Document required environment variables
+  - Maintain configuration templates
+
+## ⚠️ Error Handling
+
+- **Required Error Handlers**
+  - Connection failures
+  - Authentication errors
+  - Rate limiting
+  - Timeout handling
+
+```typescript
+// ✅ DO: Implement comprehensive error handling
+const handleMCPError = (error: MCPError) => {
+  switch (error.code) {
+    case 'AUTH_FAILED':
+      logger.error('MCP authentication failed', error);
+      refreshMCPCredentials();
+      break;
+    case 'RATE_LIMIT':
+      logger.warn('MCP rate limit hit', error);
+      implementBackoff();
+      break;
+    case 'TIMEOUT':
+      logger.error('MCP operation timed out', error);
+      retryOperation();
+      break;
+    default:
+      logger.error('Unknown MCP error', error);
+      alertDevOps(error);
+  }
+};
+
+// ❌ DON'T: Generic error handling
+try {
+  await mcpOperation();
+} catch (error) {
+  console.error(error);
+}
+```
+
+For more details on MCP server implementation, refer to the [dev_workflow.mdc](mdc:dev_workflow.mdc) document.

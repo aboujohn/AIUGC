@@ -1,0 +1,248 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# API & Data Handling Rules
+
+## 🌐 API Structure
+
+- **Endpoint Organization**
+  - Group by resource type
+  - Use RESTful conventions
+  - Version APIs appropriately
+
+```typescript
+// ✅ DO: Structure APIs properly
+// pages/api/v1/videos/[id].ts
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const { id } = req.query;
+  switch (req.method) {
+    case 'GET':
+      return getVideo(id, res);
+    case 'PUT':
+      return updateVideo(id, req.body, res);
+    case 'DELETE':
+      return deleteVideo(id, res);
+    default:
+      return res.status(405).json({ error: 'Method not allowed' });
+  }
+}
+
+// ❌ DON'T: Mix concerns
+// pages/api/video-handler.ts
+export default async function handler(req, res) {
+  if (req.url.includes('get')) {
+    // Handle get
+  } else if (req.url.includes('update')) {
+    // Handle update
+  }
+}
+```
+
+## 💾 Data Management
+
+- **State Management**
+  - Use React Query for server state
+  - Use Zustand for client state
+  - Implement proper caching
+
+```typescript
+// ✅ DO: Manage state properly
+import { useQuery, useMutation } from '@tanstack/react-query';
+import create from 'zustand';
+
+// Server state
+export function useVideo(id: string) {
+  return useQuery(['video', id], () => fetchVideo(id));
+}
+
+// Client state
+export const useVideoStore = create((set) => ({
+  currentTime: 0,
+  setCurrentTime: (time: number) => set({ currentTime: time })
+}));
+
+// ❌ DON'T: Mix state management
+let globalVideoState = {};
+function VideoPlayer() {
+  const [state, setState] = useState({});
+  // Mixing global and local state
+}
+```
+
+## 🔄 Data Fetching
+
+- **Fetch Patterns**
+  - Use SWR or React Query
+  - Implement error boundaries
+  - Handle loading states
+
+```typescript
+// ✅ DO: Handle data fetching properly
+function VideoList() {
+  const { data, error, isLoading } = useQuery(
+    ['videos'],
+    fetchVideos,
+    {
+      staleTime: 5 * 60 * 1000,
+      retry: 3
+    }
+  );
+
+  if (isLoading) return <LoadingSpinner />;
+  if (error) return <ErrorDisplay error={error} />;
+  
+  return <VideoGrid videos={data} />;
+}
+
+// ❌ DON'T: Skip error/loading states
+function VideoList() {
+  const { data } = useQuery(['videos'], fetchVideos);
+  return <VideoGrid videos={data} />; // May be undefined
+}
+```
+
+## 🔒 Data Validation
+
+- **Validation Requirements**
+  - Use Zod for schema validation
+  - Validate at API boundaries
+  - Include detailed error messages
+
+```typescript
+// ✅ DO: Validate data properly
+import { z } from 'zod';
+
+const VideoSchema = z.object({
+  title: z.string().min(1).max(100),
+  duration: z.number().min(1).max(3600),
+  url: z.string().url()
+});
+
+async function createVideo(input: unknown) {
+  const validated = VideoSchema.parse(input);
+  return await prisma.video.create({
+    data: validated
+  });
+}
+
+// ❌ DON'T: Skip validation
+async function createVideo(input: any) {
+  return await prisma.video.create({
+    data: input // Unsafe!
+  });
+}
+```
+
+## 📦 Data Caching
+
+- **Cache Strategy**
+  - Implement stale-while-revalidate
+  - Use appropriate cache times
+  - Handle cache invalidation
+
+```typescript
+// ✅ DO: Implement proper caching
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000,
+      cacheTime: 30 * 60 * 1000,
+      retry: 3
+    }
+  }
+});
+
+// Cache invalidation
+await queryClient.invalidateQueries(['videos']);
+
+// ❌ DON'T: Ignore caching
+function VideoList() {
+  // Fetches on every render
+  const [videos, setVideos] = useState([]);
+  useEffect(() => {
+    fetch('/api/videos').then(r => r.json()).then(setVideos);
+  }, []);
+}
+```
+
+## 🔄 Real-time Updates
+
+- **WebSocket Usage**
+  - Use for real-time features
+  - Implement reconnection logic
+  - Handle connection states
+
+```typescript
+// ✅ DO: Handle real-time properly
+function VideoProgress() {
+  const socket = useSocket('/video-progress');
+  
+  useEffect(() => {
+    if (!socket) return;
+    
+    socket.on('progress', handleProgress);
+    socket.on('error', handleError);
+    socket.on('disconnect', handleDisconnect);
+    
+    return () => {
+      socket.off('progress', handleProgress);
+      socket.off('error', handleError);
+      socket.off('disconnect', handleDisconnect);
+    };
+  }, [socket]);
+}
+
+// ❌ DON'T: Skip cleanup
+function VideoProgress() {
+  const socket = useSocket('/video-progress');
+  useEffect(() => {
+    socket.on('progress', handleProgress);
+    // Missing cleanup
+  }, []);
+}
+```
+
+## 📊 Error Tracking
+
+- **Error Requirements**
+  - Log all API errors
+  - Include request context
+  - Track error rates
+
+```typescript
+// ✅ DO: Track errors properly
+async function apiHandler(req: NextApiRequest, res: NextApiResponse) {
+  try {
+    // Handler logic
+  } catch (error) {
+    logger.error({
+      error,
+      path: req.url,
+      method: req.method,
+      query: req.query,
+      user: req.user?.id
+    });
+    
+    res.status(500).json({
+      error: 'Internal server error',
+      requestId: req.id
+    });
+  }
+}
+
+// ❌ DON'T: Skip error tracking
+async function apiHandler(req, res) {
+  try {
+    // Handler logic
+  } catch (error) {
+    res.status(500).json({ error: 'Failed' });
+  }
+}
+```
+
+For more details on API and data handling implementation, refer to the [cursor-rules-ai-video-platform.md](mdc:cursor-rules-ai-video-platform.md) document.

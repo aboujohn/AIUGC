@@ -1,0 +1,206 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# AI Video Marketing Platform Rules
+
+## 🎯 General Development Principles
+
+- **Code Quality Standards**
+  - Only modify code directly relevant to specific requests
+  - Break problems into smaller, manageable steps
+  - Provide complete PLAN with REASONING before changes
+  - Add descriptive console logs for debugging
+  - Use TypeScript for all new code
+
+```typescript
+// ✅ DO: Break down complex operations
+async function processVideo(input: VideoInput): Promise<ProcessedVideo> {
+  // Step 1: Validate input
+  await validateVideoInput(input);
+  
+  // Step 2: Generate script
+  const script = await generateScript(input.prompt);
+  
+  // Step 3: Create video
+  return await createVideo(script);
+}
+
+// ❌ DON'T: Write monolithic functions
+async function doEverything(input: any): Promise<any> {
+  // Complex, hard to maintain code
+}
+```
+
+## 🌐 Multilingual Support
+
+- **RTL Language Requirements**
+  - Test UI with both LTR and RTL languages
+  - Use logical CSS properties for RTL support
+  - Implement proper text alignment switching
+
+```css
+/* ✅ DO: Use logical properties */
+.container {
+  margin-inline-start: 1rem;
+  padding-inline-end: 1rem;
+}
+
+/* ❌ DON'T: Use directional properties */
+.container {
+  margin-left: 1rem;
+  padding-right: 1rem;
+}
+```
+
+## 🤖 AI Integration
+
+- **OpenAI API Usage**
+  - Include language context in prompts
+  - Implement proper error handling
+  - Use structured prompts for consistency
+
+```typescript
+// ✅ DO: Structured prompts with language context
+const generateScript = async (prompt: string, language: string) => {
+  try {
+    const response = await openai.createCompletion({
+      model: "gpt-4",
+      prompt: `Language: ${language}\nContext: Marketing video script\n${prompt}`,
+      max_tokens: 1000
+    });
+    return response.data.choices[0].text;
+  } catch (error) {
+    logger.error("Script generation failed:", error);
+    throw new ScriptGenerationError(error.message);
+  }
+};
+
+// ❌ DON'T: Unstructured prompts without error handling
+const badGenerate = async (prompt: string) => {
+  const response = await openai.createCompletion({
+    model: "gpt-4",
+    prompt: prompt
+  });
+  return response.data.choices[0].text;
+};
+```
+
+## 💾 Database Integration
+
+- **Supabase Best Practices**
+  - Use row-level security (RLS)
+  - Implement proper migrations
+  - Follow established data models
+
+```typescript
+// ✅ DO: Implement RLS policies
+const setupRLS = async () => {
+  await supabase.rpc('create_rls_policy', {
+    table_name: 'videos',
+    policy_name: 'users_own_videos',
+    using: 'auth.uid() = user_id'
+  });
+};
+
+// ❌ DON'T: Skip RLS implementation
+const unsafeQuery = async () => {
+  await supabase.from('videos').select('*');
+};
+```
+
+## 🔐 Security Requirements
+
+- **Authentication & Authorization**
+  - Use JWT with proper expiration
+  - Implement RBAC for user types
+  - Use HTTP-only cookies
+
+```typescript
+// ✅ DO: Implement proper auth checks
+const requireAuth = async (req: Request, res: Response, next: NextFunction) => {
+  const token = req.cookies.jwt;
+  if (!token) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    res.status(401).json({ error: 'Invalid token' });
+  }
+};
+
+// ❌ DON'T: Store sensitive data in localStorage
+localStorage.setItem('token', userToken); // Never do this
+```
+
+## 🧪 Testing Requirements
+
+- **Test Coverage Requirements**
+  - Unit tests: 80% minimum coverage
+  - E2E tests for critical flows
+  - Multilingual testing required
+
+```typescript
+// ✅ DO: Comprehensive test coverage
+describe('VideoGenerator', () => {
+  it('should generate video in multiple languages', async () => {
+    const languages = ['en', 'ar', 'he'];
+    for (const lang of languages) {
+      const result = await generateVideo(mockInput, lang);
+      expect(result.language).toBe(lang);
+      expect(result.status).toBe('success');
+    }
+  });
+});
+
+// ❌ DON'T: Skip language testing
+it('should generate video', async () => {
+  const result = await generateVideo(mockInput);
+  expect(result.status).toBe('success');
+});
+```
+
+## 🚀 Deployment Guidelines
+
+- **CI/CD Requirements**
+  - All tests must pass
+  - Use feature flags
+  - Zero-downtime updates
+
+## 📊 Analytics Integration
+
+- **Required Tracking**
+  - User actions
+  - Video generation metrics
+  - Business KPIs
+
+```typescript
+// ✅ DO: Implement comprehensive tracking
+const trackVideoGeneration = async (videoId: string, metrics: VideoMetrics) => {
+  await analytics.track('video_generated', {
+    videoId,
+    duration: metrics.duration,
+    language: metrics.language,
+    success: metrics.success,
+    processingTime: metrics.processingTime
+  });
+};
+
+// ❌ DON'T: Track without proper categorization
+analytics.track('video_done', { id: videoId });
+```
+
+## ⚠️ Critical Requirements
+
+- **Must-Follow Rules**
+  - No hardcoded credentials
+  - Always use provider abstractions
+  - Implement proper error handling
+  - Consider multilingual support
+  - Follow accessibility guidelines
+
+For detailed implementation guidelines, refer to the [cursor-rules-ai-video-platform.md](mdc:cursor-rules-ai-video-platform.md) document.

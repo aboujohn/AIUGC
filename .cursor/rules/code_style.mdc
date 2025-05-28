@@ -1,0 +1,236 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Code Style & Formatting Rules
+
+## 🎨 TypeScript Style
+
+- **Naming Conventions**
+  - Use PascalCase for components and classes
+  - Use camelCase for functions and variables
+  - Use UPPER_SNAKE_CASE for constants
+  - Use kebab-case for file names
+
+```typescript
+// ✅ DO: Follow naming conventions
+class VideoProcessor {
+  private readonly MAX_DURATION = 300;
+  
+  async processVideo(videoInput: VideoInput): Promise<ProcessedVideo> {
+    // Implementation
+  }
+}
+
+// ❌ DON'T: Mix naming styles
+class video_processor {
+  private readonly maxDuration = 300;
+  
+  async Process_video(VideoInput: videoInput): Promise<processedVideo> {
+    // Implementation
+  }
+}
+```
+
+## 📏 Code Organization
+
+- **File Structure**
+  - Group related components
+  - Separate concerns
+  - Use index files for exports
+
+```typescript
+// ✅ DO: Organize code properly
+// components/video/index.ts
+export * from './VideoPlayer';
+export * from './VideoControls';
+export * from './VideoTimeline';
+
+// ❌ DON'T: Mix unrelated code
+// components/misc.ts
+export * from './VideoPlayer';
+export * from './UserProfile';
+export * from './PaymentForm';
+```
+
+## 💅 CSS/SCSS Style
+
+- **Class Naming**
+  - Use BEM methodology
+  - Prefix component classes
+  - Avoid global styles
+
+```scss
+// ✅ DO: Follow BEM
+.video-player {
+  &__controls {
+    &--active {
+      // Styles
+    }
+  }
+}
+
+// ❌ DON'T: Use unclear naming
+.player {
+  .controls {
+    &.active {
+      // Styles
+    }
+  }
+}
+```
+
+## 📚 Documentation
+
+- **Required Comments**
+  - Document complex logic
+  - Explain non-obvious decisions
+  - Include JSDoc for public APIs
+
+```typescript
+// ✅ DO: Document properly
+/**
+ * Processes video with AI enhancements
+ * @param input - Video input configuration
+ * @returns Processed video with applied effects
+ * @throws {ValidationError} If input is invalid
+ */
+async function processVideo(input: VideoInput): Promise<ProcessedVideo> {
+  // Implementation
+}
+
+// ❌ DON'T: Skip documentation
+async function processVideo(input) {
+  // Undocumented implementation
+}
+```
+
+## 🔧 Code Formatting
+
+- **Indentation**
+  - Use 2 spaces
+  - Align parameters
+  - Consistent brace style
+
+```typescript
+// ✅ DO: Format consistently
+function calculateMetrics(
+  videoId: string,
+  options: MetricOptions
+): Promise<VideoMetrics> {
+  return Promise.resolve({
+    duration: 0,
+    views: 0
+  });
+}
+
+// ❌ DON'T: Use inconsistent formatting
+function calculateMetrics(videoId: string,
+options: MetricOptions): Promise<VideoMetrics>
+{
+return Promise.resolve({
+duration: 0,
+views: 0
+});
+}
+```
+
+## 🎯 Import/Export Style
+
+- **Import Organization**
+  - Group by type
+  - Sort alphabetically
+  - Use named exports
+
+```typescript
+// ✅ DO: Organize imports
+// External dependencies
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+
+// Internal components
+import { VideoPlayer } from './VideoPlayer';
+import { VideoControls } from './VideoControls';
+
+// Types and utilities
+import type { VideoConfig } from '@/types';
+import { formatDuration } from '@/utils';
+
+// ❌ DON'T: Mix import styles
+import React from 'react'
+import {VideoPlayer} from './VideoPlayer'
+import type {VideoConfig} from '@/types'
+import {motion} from 'framer-motion'
+import {formatDuration} from '@/utils'
+import {VideoControls} from './VideoControls'
+```
+
+## 🔍 Error Handling
+
+- **Error Patterns**
+  - Use custom error classes
+  - Include error context
+  - Handle async errors
+
+```typescript
+// ✅ DO: Handle errors properly
+class VideoProcessingError extends Error {
+  constructor(
+    message: string,
+    public readonly videoId: string,
+    public readonly stage: string
+  ) {
+    super(`Failed to process video ${videoId} at ${stage}: ${message}`);
+  }
+}
+
+try {
+  await processVideo(input);
+} catch (error) {
+  if (error instanceof VideoProcessingError) {
+    logger.error({
+      videoId: error.videoId,
+      stage: error.stage,
+      message: error.message
+    });
+  }
+  throw error;
+}
+
+// ❌ DON'T: Use generic errors
+try {
+  await processVideo(input);
+} catch (error) {
+  console.error('Error:', error);
+}
+```
+
+## 🎭 Type Definitions
+
+- **Type Organization**
+  - Use interfaces for objects
+  - Use type for unions/intersections
+  - Export type definitions
+
+```typescript
+// ✅ DO: Organize types properly
+interface VideoInput {
+  url: string;
+  duration: number;
+  effects: VideoEffect[];
+}
+
+type VideoEffect = 'blur' | 'sharpen' | 'contrast';
+
+export type { VideoInput, VideoEffect };
+
+// ❌ DON'T: Mix type styles
+type videoInput = {
+  url: string,
+  duration: number,
+  effects: ('blur' | 'sharpen' | 'contrast')[]
+}
+```
+
+For more details on code style implementation, refer to the [cursor-rules-ai-video-platform.md](mdc:cursor-rules-ai-video-platform.md) document.

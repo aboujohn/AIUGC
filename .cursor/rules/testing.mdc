@@ -1,0 +1,241 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Testing Requirements
+
+## 🧪 Test Coverage
+
+- **Minimum Coverage Requirements**
+  - 80% line coverage
+  - 70% branch coverage
+  - 90% critical path coverage
+
+```typescript
+// ✅ DO: Test critical paths thoroughly
+describe('VideoGenerator', () => {
+  it('should generate video with proper input', async () => {
+    const input = mockVideoInput();
+    const result = await generateVideo(input);
+    expect(result).toHaveProperty('url');
+    expect(result.status).toBe('completed');
+  });
+
+  it('should handle errors gracefully', async () => {
+    const input = mockInvalidInput();
+    await expect(generateVideo(input)).rejects.toThrow();
+  });
+});
+
+// ❌ DON'T: Skip error cases
+describe('VideoGenerator', () => {
+  it('should generate video', async () => {
+    const result = await generateVideo({}); // Missing error cases
+    expect(result).toBeDefined();
+  });
+});
+```
+
+## 🔄 Test Types
+
+- **Unit Tests**
+  - Test individual functions
+  - Mock dependencies
+  - Focus on edge cases
+
+- **Integration Tests**
+  - Test component interactions
+  - Use test databases
+  - Verify API contracts
+
+- **E2E Tests**
+  - Test critical user flows
+  - Use production-like data
+  - Include error scenarios
+
+```typescript
+// ✅ DO: Implement all test types
+// Unit Test
+describe('generateScript', () => {
+  it('should create script from prompt', () => {
+    const script = generateScript('test prompt');
+    expect(script).toMatch(/test prompt/i);
+  });
+});
+
+// Integration Test
+describe('VideoWorkflow', () => {
+  it('should process video end-to-end', async () => {
+    const workflow = new VideoWorkflow(testDb, testQueue);
+    const result = await workflow.process(mockInput);
+    expect(result.status).toBe('completed');
+  });
+});
+
+// E2E Test
+describe('Video Creation Flow', () => {
+  it('should create video through UI', async () => {
+    await page.goto('/create');
+    await page.fill('#prompt', 'test video');
+    await page.click('#generate');
+    await expect(page.locator('#video-player')).toBeVisible();
+  });
+});
+```
+
+## 🛠️ Testing Tools
+
+- **Required Tools**
+  - Jest for unit/integration
+  - Playwright for E2E
+  - React Testing Library
+  - MSW for API mocking
+
+```typescript
+// ✅ DO: Use appropriate testing tools
+import { render, screen } from '@testing-library/react';
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
+
+const server = setupServer(
+  rest.post('/api/videos', (req, res, ctx) => {
+    return res(ctx.json({ id: 'test-123' }));
+  })
+);
+
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
+
+// ❌ DON'T: Mix testing concerns
+test('component test', () => {
+  // Don't mix unit and E2E testing
+  cy.visit('/');
+  render(<Component />);
+});
+```
+
+## 📝 Test Documentation
+
+- **Required Documentation**
+  - Test purpose
+  - Test data setup
+  - Expected outcomes
+  - Edge cases covered
+
+```typescript
+// ✅ DO: Document tests properly
+/**
+ * Tests the video generation workflow
+ * Setup:
+ * - Mock OpenAI API responses
+ * - Setup test database
+ * - Configure test queue
+ * 
+ * Cases covered:
+ * - Successful generation
+ * - API failure
+ * - Invalid input
+ * - Timeout scenarios
+ */
+describe('VideoGenerationWorkflow', () => {
+  // Test implementation
+});
+
+// ❌ DON'T: Skip documentation
+describe('VideoGenerationWorkflow', () => {
+  it('should work', () => {
+    // Unclear test purpose and coverage
+  });
+});
+```
+
+## 🔍 Test Data Management
+
+- **Test Data Requirements**
+  - Use factories for test data
+  - Avoid hardcoded values
+  - Clean up after tests
+
+```typescript
+// ✅ DO: Use factories for test data
+import { Factory } from 'fishery';
+
+const videoFactory = Factory.define<Video>(() => ({
+  id: faker.string.uuid(),
+  title: faker.lorem.words(3),
+  duration: faker.number.int({ min: 30, max: 300 }),
+  status: 'pending'
+}));
+
+// ❌ DON'T: Use hardcoded data
+const testVideo = {
+  id: '123',
+  title: 'test',
+  duration: 60
+};
+```
+
+## ⚡ Performance Testing
+
+- **Required Metrics**
+  - Response times
+  - Resource usage
+  - Concurrent users
+  - Error rates
+
+```typescript
+// ✅ DO: Include performance tests
+describe('API Performance', () => {
+  it('should handle 100 concurrent requests', async () => {
+    const start = Date.now();
+    const requests = Array(100).fill(null).map(() => 
+      fetch('/api/generate')
+    );
+    
+    const results = await Promise.all(requests);
+    const duration = Date.now() - start;
+    
+    expect(duration).toBeLessThan(5000);
+    results.forEach(r => expect(r.status).toBe(200));
+  });
+});
+
+// ❌ DON'T: Skip performance testing
+describe('API', () => {
+  it('should work', async () => {
+    const response = await fetch('/api/generate');
+    expect(response.status).toBe(200);
+  });
+});
+```
+
+## 🔄 CI/CD Integration
+
+- **Pipeline Requirements**
+  - Run tests on every PR
+  - Block merges on failures
+  - Report coverage changes
+
+```yaml
+# ✅ DO: Configure proper CI/CD
+name: Test Pipeline
+on: [pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm test
+      - name: Upload coverage
+        uses: codecov/codecov-action@v2
+
+# ❌ DON'T: Skip CI/CD integration
+# Missing test pipeline configuration
+```
+
+For more details on testing implementation, refer to the [cursor-rules-ai-video-platform.md](mdc:cursor-rules-ai-video-platform.md) document.
