@@ -56,4 +56,30 @@ git-push.bat
 git-push-final.bat
 git-setup-final.bat
 setup-git.bat
-complete-git-setup.bat 
+complete-git-setup.bat
+
+# Added by Claude Task Master
+# Logs
+logs
+*.log
+dev-debug.log
+# Dependency directories
+node_modules/
+# Environment variables
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+# OS specific
+# Task files
+tasks.json
+tasks/
+
+# Environment variables
+.env
+.env.local
+.env.*.local 
