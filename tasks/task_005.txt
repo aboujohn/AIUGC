@@ -1,0 +1,11 @@
+# Task ID: 5
+# Title: Setup Internationalization (i18n) Framework
+# Status: pending
+# Dependencies: 1
+# Priority: high
+# Description: Implement comprehensive multilingual support with RTL language handling
+# Details:
+Configure next-i18next for Next.js, create translation files in /public/locales/ for English, Hebrew, Arabic, Spanish, French. Implement RTL detection and CSS adjustments using Tailwind CSS RTL plugin. Setup language detection from browser settings and user preferences. Create translation management workflow with proper namespacing.
+
+# Test Strategy:
+Verify translations load correctly, RTL languages display properly with correct text direction, language switching works seamlessly, and fallback to default language functions correctly.

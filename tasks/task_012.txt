@@ -1,0 +1,11 @@
+# Task ID: 12
+# Title: Integrate Stripe Payment Processing
+# Status: pending
+# Dependencies: 7
+# Priority: high
+# Description: Implement flexible pricing model with subscriptions and one-time payments
+# Details:
+Setup Stripe integration using stripe npm package, create subscription plans with different tiers, implement one-time payment for individual videos. Setup webhook handling for payment events, create billing dashboard for users. Implement usage tracking against subscription limits, proration for plan changes. Add support for multiple currencies with 150₪ minimum value enforcement.
+
+# Test Strategy:
+Test subscription creation, payment processing, webhook handling, usage tracking, plan upgrades/downgrades, and currency conversion accuracy.

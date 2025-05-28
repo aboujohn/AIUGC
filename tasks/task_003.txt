@@ -1,0 +1,11 @@
+# Task ID: 3
+# Title: Setup Database Schema with Supabase
+# Status: pending
+# Dependencies: 2
+# Priority: high
+# Description: Design and implement the complete PostgreSQL database schema using Supabase
+# Details:
+Create Supabase project, design tables for Users, Scripts, Avatars, Videos, Assets, VideoAssets, Subscriptions, Plans, SocialAccounts, SocialShares. Implement proper foreign key relationships, indexes for performance, and RLS (Row Level Security) policies. Use Supabase CLI for migration management. Setup database triggers for audit logging and automatic timestamp updates.
+
+# Test Strategy:
+Run database migrations successfully, verify all relationships work correctly, test RLS policies prevent unauthorized access, and confirm indexes improve query performance.
