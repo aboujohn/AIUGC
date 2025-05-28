@@ -1,0 +1,11 @@
+.git
+.gitignore
+.husky
+.next
+node_modules
+*.log
+.env*
+.eslintrc*
+.prettierrc*
+README.md
+tsconfig.json 
