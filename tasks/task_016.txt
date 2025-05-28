@@ -1,0 +1,11 @@
+# Task ID: 16
+# Title: Build Analytics and Reporting System
+# Status: pending
+# Dependencies: 15
+# Priority: medium
+# Description: Implement comprehensive analytics for usage tracking and performance monitoring
+# Details:
+Setup Amplitude for product analytics, create user dashboard with video creation metrics, usage statistics, subscription status. Implement video performance tracking (views, shares, engagement), export functionality for reports (CSV, PDF). Add admin analytics for platform-wide metrics, cost tracking, and user behavior analysis.
+
+# Test Strategy:
+Verify analytics data is collected accurately, dashboard displays correct metrics, export functionality works, and admin analytics provide actionable insights.

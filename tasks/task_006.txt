@@ -1,0 +1,11 @@
+# Task ID: 6
+# Title: Create Core UI Components Library
+# Status: pending
+# Dependencies: 5
+# Priority: medium
+# Description: Build reusable UI components with Tailwind CSS and accessibility compliance
+# Details:
+Create component library with Button, Input, Modal, Card, Avatar, ProgressBar, Dropdown, Toast notifications. Implement WCAG 2.1 AA compliance with proper ARIA attributes, keyboard navigation, focus management. Use Headless UI for complex components. Setup Storybook for component documentation. Implement dark/light theme support.
+
+# Test Strategy:
+Test components with screen readers, verify keyboard navigation works, check color contrast ratios meet WCAG standards, and validate components work in both LTR and RTL layouts.

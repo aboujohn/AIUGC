@@ -1,0 +1,213 @@
+{
+  "meta": {
+    "generatedAt": "2025-05-28T13:19:33.980Z",
+    "tasksAnalyzed": 25,
+    "totalTasks": 25,
+    "analysisCount": 25,
+    "thresholdScore": 7,
+    "projectName": "Taskmaster",
+    "usedResearch": true
+  },
+  "complexityAnalysis": [
+    {
+      "taskId": 1,
+      "taskTitle": "Setup Project Repository and Development Environment",
+      "complexityScore": 6,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Break down the project setup into specific configuration steps: Next.js initialization, TypeScript configuration, linting setup, Tailwind CSS with RTL, Docker containerization, GitHub repository setup, CI/CD pipeline configuration, and environment variable management.",
+      "reasoning": "Medium-high complexity due to multiple technology integrations and configuration requirements. RTL support and CI/CD pipeline add complexity but are well-documented processes."
+    },
+    {
+      "taskId": 2,
+      "taskTitle": "Configure MCP Integration Foundation",
+      "complexityScore": 7,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Divide MCP setup into: configuration file creation, Supabase MCP server setup, GitHub MCP integration, Puppeteer MCP configuration, environment variable security, and MCP server testing and validation.",
+      "reasoning": "High complexity due to specialized MCP technology and multiple server integrations. Requires understanding of each MCP server's specific configuration and security considerations."
+    },
+    {
+      "taskId": 3,
+      "taskTitle": "Setup Database Schema with Supabase",
+      "complexityScore": 8,
+      "recommendedSubtasks": 10,
+      "expansionPrompt": "Break down database setup into: Supabase project creation, table design and relationships, RLS policy implementation, index optimization, migration scripts, audit triggers, CLI setup, data validation, performance testing, and backup configuration.",
+      "reasoning": "High complexity due to comprehensive schema design with multiple related tables, RLS policies, and performance optimization requirements. Database design decisions impact entire application."
+    },
+    {
+      "taskId": 4,
+      "taskTitle": "Implement Authentication System",
+      "complexityScore": 8,
+      "recommendedSubtasks": 9,
+      "expansionPrompt": "Divide authentication into: JWT implementation, registration/login endpoints, password security, refresh token mechanism, role-based access control, social login integration, password reset functionality, session management, and security testing.",
+      "reasoning": "High complexity due to security-critical nature and multiple authentication methods. Requires careful implementation of JWT handling, social integrations, and security best practices."
+    },
+    {
+      "taskId": 5,
+      "taskTitle": "Setup Internationalization (i18n) Framework",
+      "complexityScore": 6,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Break down i18n into: next-i18next configuration, translation file structure, RTL language support, language detection, user preference storage, translation management workflow, and fallback handling.",
+      "reasoning": "Medium-high complexity due to RTL language support and multiple language handling. Well-established patterns exist but RTL CSS adjustments add complexity."
+    },
+    {
+      "taskId": 6,
+      "taskTitle": "Create Core UI Components Library",
+      "complexityScore": 7,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Divide component library into: basic components (Button, Input), complex components (Modal, Dropdown), accessibility implementation, theme system, Storybook setup, RTL support, component testing, and documentation.",
+      "reasoning": "High complexity due to accessibility compliance requirements and comprehensive component library. WCAG 2.1 AA compliance and RTL support add significant complexity."
+    },
+    {
+      "taskId": 7,
+      "taskTitle": "Implement User Management API",
+      "complexityScore": 6,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Break down user API into: CRUD endpoints, input validation, error handling middleware, rate limiting, file upload functionality, user preferences, and API testing.",
+      "reasoning": "Medium-high complexity due to comprehensive API requirements and security considerations. Standard patterns exist but file upload and rate limiting add complexity."
+    },
+    {
+      "taskId": 8,
+      "taskTitle": "Integrate OpenAI API for Script Generation",
+      "complexityScore": 7,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Divide OpenAI integration into: API setup, prompt engineering, multilingual support, script variations, refinement capabilities, token tracking, cost monitoring, and quality assurance.",
+      "reasoning": "High complexity due to prompt engineering requirements and multilingual support. Token usage tracking and cost optimization add business logic complexity."
+    },
+    {
+      "taskId": 9,
+      "taskTitle": "Build Avatar Management System",
+      "complexityScore": 6,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Break down avatar system into: data structure design, filtering implementation, preview functionality, recommendation engine, asset storage setup, categorization system, and search functionality.",
+      "reasoning": "Medium-high complexity due to recommendation engine and asset management. CDN integration and metadata handling add technical complexity."
+    },
+    {
+      "taskId": 10,
+      "taskTitle": "Design Video API Abstraction Layer",
+      "complexityScore": 9,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Divide abstraction layer into: adapter pattern implementation, unified interface design, provider configuration, fallback logic, load balancing, cost tracking, quality standardization, and factory pattern implementation.",
+      "reasoning": "Very high complexity due to advanced design patterns and multiple provider integrations. Requires sophisticated architecture to handle different APIs uniformly."
+    },
+    {
+      "taskId": 11,
+      "taskTitle": "Implement Asset Management System",
+      "complexityScore": 7,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Break down asset management into: upload endpoints, file validation, image processing, S3 storage setup, security policies, categorization system, video integration, and asset optimization.",
+      "reasoning": "High complexity due to file processing, security requirements, and integration with video generation. Image processing and S3 security add technical complexity."
+    },
+    {
+      "taskId": 12,
+      "taskTitle": "Integrate Stripe Payment Processing",
+      "complexityScore": 8,
+      "recommendedSubtasks": 9,
+      "expansionPrompt": "Divide payment integration into: Stripe setup, subscription plans, one-time payments, webhook handling, billing dashboard, usage tracking, plan management, currency support, and payment security.",
+      "reasoning": "High complexity due to financial transaction handling and multiple payment models. Webhook handling and subscription management require careful implementation."
+    },
+    {
+      "taskId": 13,
+      "taskTitle": "Build Video Generation Workflow",
+      "complexityScore": 9,
+      "recommendedSubtasks": 10,
+      "expansionPrompt": "Break down video workflow into: queue system setup, job processing, progress tracking, error handling, retry logic, storage configuration, quality presets, thumbnail generation, metadata extraction, and performance optimization.",
+      "reasoning": "Very high complexity due to asynchronous processing, queue management, and multiple quality options. Requires robust error handling and progress tracking systems."
+    },
+    {
+      "taskId": 14,
+      "taskTitle": "Create Video Library Management",
+      "complexityScore": 6,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Divide video library into: interface design, search implementation, filtering system, categorization, bulk operations, analytics dashboard, and performance optimization.",
+      "reasoning": "Medium-high complexity due to search functionality and analytics integration. Full-text search and bulk operations add technical requirements."
+    },
+    {
+      "taskId": 15,
+      "taskTitle": "Implement Social Media Integration",
+      "complexityScore": 8,
+      "recommendedSubtasks": 9,
+      "expansionPrompt": "Break down social integration into: API integrations for each platform, OAuth authentication, video optimization, scheduling functionality, posting time recommendations, analytics integration, error handling, and rate limiting.",
+      "reasoning": "High complexity due to multiple API integrations and platform-specific requirements. Each social platform has different authentication and optimization needs."
+    },
+    {
+      "taskId": 16,
+      "taskTitle": "Build Analytics and Reporting System",
+      "complexityScore": 7,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Divide analytics into: Amplitude setup, user dashboard, video metrics, usage statistics, performance tracking, export functionality, admin analytics, and data visualization.",
+      "reasoning": "High complexity due to comprehensive analytics requirements and data visualization. Multiple data sources and export functionality add complexity."
+    },
+    {
+      "taskId": 17,
+      "taskTitle": "Implement Advanced MCP Integrations",
+      "complexityScore": 7,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Break down advanced MCP into: Google Ads MCP, Stripe MCP, F2C MCP, Google Drive MCP, Fetch MCP, credential management, and monitoring setup.",
+      "reasoning": "High complexity due to multiple specialized integrations and security requirements. Each MCP server has unique configuration and monitoring needs."
+    },
+    {
+      "taskId": 18,
+      "taskTitle": "Create Admin Dashboard and Management Tools",
+      "complexityScore": 7,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Divide admin dashboard into: user management interface, avatar library management, system monitoring, analytics overview, content moderation, subscription management, audit logging, and role permissions.",
+      "reasoning": "High complexity due to comprehensive admin functionality and security requirements. Role-based permissions and audit logging add security complexity."
+    },
+    {
+      "taskId": 19,
+      "taskTitle": "Implement Mobile-Responsive Design",
+      "complexityScore": 6,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Break down mobile optimization into: responsive design implementation, touch interaction optimization, mobile navigation, PWA features, service worker setup, and mobile performance optimization.",
+      "reasoning": "Medium-high complexity due to PWA implementation and mobile-specific optimizations. Touch interactions and offline functionality add technical requirements."
+    },
+    {
+      "taskId": 20,
+      "taskTitle": "Setup Monitoring and Error Tracking",
+      "complexityScore": 6,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Divide monitoring into: Datadog setup, Sentry integration, logging implementation, alerting configuration, performance monitoring, health checks, and uptime monitoring.",
+      "reasoning": "Medium-high complexity due to multiple monitoring tools and comprehensive coverage requirements. Integration and alerting configuration add complexity."
+    },
+    {
+      "taskId": 21,
+      "taskTitle": "Implement Security Hardening",
+      "complexityScore": 8,
+      "recommendedSubtasks": 9,
+      "expansionPrompt": "Break down security into: CSRF protection, XSS prevention, SQL injection protection, rate limiting, input sanitization, HTTPS enforcement, security headers, GDPR compliance, and privacy law compliance.",
+      "reasoning": "High complexity due to comprehensive security requirements and compliance needs. GDPR and privacy law compliance add legal and technical complexity."
+    },
+    {
+      "taskId": 22,
+      "taskTitle": "Create API Documentation and Testing",
+      "complexityScore": 6,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Divide documentation and testing into: Swagger/OpenAPI setup, API examples, automated testing with Jest, E2E testing with Cypress, test data management, database seeding, and testing environment setup.",
+      "reasoning": "Medium-high complexity due to comprehensive testing requirements and documentation needs. E2E testing and test data management add complexity."
+    },
+    {
+      "taskId": 23,
+      "taskTitle": "Implement Performance Optimization",
+      "complexityScore": 7,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Break down performance optimization into: Redis caching, database optimization, CDN setup, image optimization, lazy loading, code splitting, performance monitoring, and optimization alerts.",
+      "reasoning": "High complexity due to multiple optimization techniques and performance monitoring requirements. Caching strategies and code splitting require careful implementation."
+    },
+    {
+      "taskId": 24,
+      "taskTitle": "Setup Production Deployment Pipeline",
+      "complexityScore": 9,
+      "recommendedSubtasks": 9,
+      "expansionPrompt": "Divide deployment into: container orchestration setup, auto-scaling configuration, blue-green deployment, production database setup, read replicas, backup procedures, disaster recovery, environment configuration, and secrets management.",
+      "reasoning": "Very high complexity due to production infrastructure requirements and high availability needs. Auto-scaling and disaster recovery require sophisticated setup."
+    },
+    {
+      "taskId": 25,
+      "taskTitle": "Conduct User Acceptance Testing and Launch Preparation",
+      "complexityScore": 8,
+      "recommendedSubtasks": 9,
+      "expansionPrompt": "Break down launch preparation into: user acceptance testing, load testing, security testing, user onboarding flow, documentation creation, support tools setup, feedback system, launch monitoring, and go-live procedures.",
+      "reasoning": "High complexity due to comprehensive testing requirements and launch preparation needs. Load testing and security validation require thorough execution."
+    }
+  ]
+}
