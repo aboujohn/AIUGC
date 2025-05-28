@@ -1,0 +1,24 @@
+version: 1
+applications:
+  - frontend:
+      phases:
+        preBuild:
+          commands:
+            - npm cache clean --force
+            - npm config set legacy-peer-deps true
+            - nvm install 20
+            - nvm use 20
+            - node -v
+            - npm install --legacy-peer-deps
+        build:
+          commands:
+            - env | grep -e NEXT_PUBLIC_ -e NEXTAUTH_ >> .env.production
+            - npm run build
+      artifacts:
+        baseDirectory: .next
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - node_modules/**/*
+          - .next/cache/**/* 
