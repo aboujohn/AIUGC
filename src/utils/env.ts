@@ -1,11 +1,46 @@
+// Environment variables interface
+interface Env {
+  NEXTAUTH_SECRET: string | undefined
+  NEXTAUTH_URL: string | undefined
+  NODE_ENV: string | undefined
+}
+
+// Environment variables
+const env: Env = {
+  NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+  NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+  NODE_ENV: process.env.NODE_ENV,
+}
+
+/**
+ * Get an environment variable
+ */
+export function getEnv(key: keyof Env): string | undefined {
+  return env[key]
+}
+
+/**
+ * Check if running in production
+ */
+export function isProduction(): boolean {
+  return env.NODE_ENV === 'production'
+}
+
+/**
+ * Check if running in development
+ */
+export function isDevelopment(): boolean {
+  return env.NODE_ENV === 'development'
+}
+
 // Minimum required environment variables for initial deployment
-const requiredEnvVars = {
+export const requiredEnvVars = {
   // NextAuth (required for authentication)
   NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
 } as const
 
 // Optional environment variables that can be added later
-const optionalEnvVars = {
+export const optionalEnvVars = {
   // Application
   NODE_ENV: process.env.NODE_ENV,
   NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
@@ -73,7 +108,7 @@ export function getRequiredServerEnvVar(key: keyof typeof requiredEnvVars): stri
 }
 
 // Simple runtime environment check
-export function checkEnv() {
+export function checkEnv(): void {
   if (process.env.NODE_ENV === 'production' && !process.env.NEXTAUTH_SECRET) {
     console.error('Warning: NEXTAUTH_SECRET is not set in production')
   }
@@ -95,16 +130,6 @@ export function getRequiredEnvVar(key: string): string {
 // Get an optional environment variable
 export function getEnvVar(key: string): string | undefined {
   return process.env[key]
-}
-
-// Check if we're in production
-export function isProduction(): boolean {
-  return process.env.NODE_ENV === 'production'
-}
-
-// Check if we're in development
-export function isDevelopment(): boolean {
-  return process.env.NODE_ENV === 'development'
 }
 
 export function getOptionalEnvVar<T extends keyof typeof optionalEnvVars>(key: T): string | undefined {
