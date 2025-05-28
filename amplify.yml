@@ -9,7 +9,7 @@ applications:
             - nvm install 20
             - nvm use 20
             - node -v
-            - npm ci --legacy-peer-deps --no-optional
+            - npm ci
         build:
           commands:
             - env | grep -e NEXT_PUBLIC_ -e NEXTAUTH_ >> .env.production
